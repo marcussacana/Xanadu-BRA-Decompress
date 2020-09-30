@@ -143,6 +143,19 @@ namespace Xanadu_BRA_Decompress
 
                 // Trim file extension
                 if (trimExtension) { xanaduFileEntry.fileName = xanaduFileEntry.fileName.Substring(0, xanaduFileEntry.fileName.IndexOf(".") + 4); }
+                
+                var Ext = xanaduFileEntry.fileName.Substring(xanaduFileEntry.fileName.IndexOf(".")).ToLower();
+                if (Ext.Length > 3) {
+                    var KnowExts = new string[] { "cl3", "ogg", "dat", "dds", "ffu", "gbin", "gstr", "png", "env", "lip" };
+                    foreach (var KnowExt in KnowExts){
+                        if (Ext.Contains(KnowExt)) {
+                            var FN = xanaduFileEntry.fileName;
+                            FN = FN.Substring(0, FN.IndexOf('.') + 1) + KnowExt;
+                            xanaduFileEntry.fileName = FN;
+                           break;
+                        }
+                    }
+                }
 
                 // Add onto list
                 fileList.Add(xanaduFileEntry);
